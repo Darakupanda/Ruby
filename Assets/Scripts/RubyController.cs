@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class RubyController : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class RubyController : MonoBehaviour
     Animator anim;
     Vector2 lookDirection = new Vector2(1f,0);
 
+    public GameObject prefab;
     void Start()
     {
         rb=GetComponent<Rigidbody2D>();
@@ -54,6 +57,9 @@ public class RubyController : MonoBehaviour
                 isInvincible = false;
             }
         }
+        if(Input.GetKeyDown(KeyCode.C)){
+            Launch();
+        }
     }
 
     public void Changehealth(int amount){
@@ -65,5 +71,15 @@ public class RubyController : MonoBehaviour
         }
         currentHealth = Mathf.Clamp(currentHealth + amount,0,maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
+    }
+    void Launch(){
+        GameObject cogBullet = Instantiate(
+            prefab,
+            rb.position + Vector2.up*0.5f,
+            Quaternion.identity
+        );
+        CogBulletController CogCon = cogBullet.GetComponent<CogBulletController>();
+        CogCon.Launch(lookDirection,5f);
+        anim.SetTrigger("Launch");
     }
 }
