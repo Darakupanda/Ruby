@@ -30,6 +30,7 @@ public class ImageCont : MonoBehaviour
                 image.rectTransform.sizeDelta = new Vector2(
                     sp.rect.width,sp.rect.height
                 );
+                // image.rectTransform.pivot=new Vector2(0f,0f);
                 image.sprite = sp;
                 image.transform.DORotate(new Vector3(0f,0f,-360f),2f,RotateMode.FastBeyond360)
                 .SetDelay(2f);
